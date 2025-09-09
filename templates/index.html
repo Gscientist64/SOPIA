@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOPIA - Your SOP Assistant</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Ask SOPIA a Question</h1>
+        <form id="queryForm">
+            <input type="text" id="query" placeholder="Enter your question here" required>
+            <button type="submit">Ask</button>
+        </form>
+        <div id="response"></div>
+    </div>
+
+    <script>
+        document.getElementById("queryForm").addEventListener("submit", async (e) => {
+            e.preventDefault(); // Prevent the form from submitting the usual way
+
+            const query = document.getElementById("query").value;
+            const responseDiv = document.getElementById("response");
+
+            const res = await fetch('/query', {
+                method: 'POST', // Ensures that it's a POST request
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ query: query }),
+            });
+
+            const data = await res.json();
+            responseDiv.innerHTML = data.response; // Display the result in the response div
+        });
+    </script>
+</body>
+</html>

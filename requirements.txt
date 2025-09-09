@@ -1,0 +1,8 @@
+flask
+python-docx
+requests
+PyMuPDF
+twilio
+chatterbot
+pytesseract
+Pillow
